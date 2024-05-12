@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form id="signup">
+        <input type="text" name="username">
+        <input type="email" name="email" >
+        <input type="password" name="password"/>
+        <button> submit </button>
+    </form>
+</body>
+<script>
+const elem=document.querySelector("#signup");
+    function handleSubmit(e){
+        e.preventDefault()
+        const form= new FormData(elem)
+        const data ={
+            name:form.get("username"),
+            mail:form.get("email"),
+            pass:form.get("password")
+        }
+        console.log("before",data)
+        fetch("http://localhost:3000/signup",{
+            method:"POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body:JSON.stringify(data)
+            })
+            .then((res) => res.text()) 
+        .then((data)=>console.log(data))
+    }
+elem.addEventListener("submit",function(e){
+    handleSubmit(e)
+})
+</script>
+</html>

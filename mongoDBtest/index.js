@@ -1,11 +1,40 @@
 const express=require("express")
 const app=express()
+const mongoose=require("mongoose")
 const port=3000
 
+mongoose.connect("mongodb+srv://josephsamuvel001:QmIlu2quA0BNYI3K@cluster0.qomggyw.mongodb.net/samnewDB")
+
+const users=mongoose.model("users",{username:String,email:String,password:String })
+
+//middleware
+app.use(express.json())
 
 app.get("/",function(req,res){
     console.log("hello")
     res.send("hello")
+})
+
+//signup route
+app.post("/signup", async function(req,res){
+    const name=req.body.name;
+    const mail=req.body.mail;
+    const pass=req.body.pass;
+    console.log("after",name,req.body)
+    const userExist= await users.findOne({email:mail})
+    if(userExist){
+        return res.status(400).send("user already exist")
+    }
+    const user=new users(
+        {
+            username:name,
+            email:mail,
+            password:pass
+        }
+    )
+
+    user.save()
+    res.status(200).send("user created")
 })
 
 app.listen(port, () => {
