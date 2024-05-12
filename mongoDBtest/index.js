@@ -1,6 +1,7 @@
 const express=require("express")
 const app=express()
 const mongoose=require("mongoose")
+const cors=require("cors")
 const port=3000
 
 mongoose.connect("mongodb+srv://josephsamuvel001:QmIlu2quA0BNYI3K@cluster0.qomggyw.mongodb.net/samnewDB")
@@ -9,6 +10,7 @@ const users=mongoose.model("users",{username:String,email:String,password:String
 
 //middleware
 app.use(express.json())
+app.use(cors())
 
 app.get("/",function(req,res){
     console.log("hello")
