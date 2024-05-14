@@ -4,7 +4,7 @@ const mongoose=require("mongoose")
 const cors=require("cors")
 const port=3000
 
-mongoose.connect("mongodb+srv://josephsamuvel001:QmIlu2quA0BNYI3K@cluster0.qomggyw.mongodb.net/samnewDB")
+mongoose.connect(process.env.MONGOURL)
 
 const users=mongoose.model("users",{username:String,email:String,password:String })
 
