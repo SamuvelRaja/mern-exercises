@@ -1,11 +1,14 @@
-
+import { countAtom } from "./store/atoms/count";
+import { useRecoilValue, useRecoilState, RecoilRoot } from "recoil";
 
 function App() {
 
   return (
     <div>
-      <Countwrapper />
-      <Btnwrapper/>
+      <RecoilRoot>
+          <Countwrapper />
+          <Btnwrapper/>
+      </RecoilRoot>
     </div>
   )
 }
@@ -29,14 +32,17 @@ function Btnwrapper(){
 }
 
 function Count(){
-  let count=0
+  let count=useRecoilValue(countAtom)
   return(
       <input type="text" value={count} />
   )
 }
 function Btn(){
+  const[count, setCount]=useRecoilState(countAtom)
   return(
-      <button>
+      <button onClick={()=>{
+        setCount(count+1)
+      }}>
         increment
       </button>
   )

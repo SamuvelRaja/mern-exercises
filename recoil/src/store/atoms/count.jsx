@@ -1,6 +1,6 @@
 import {atom} from "recoil";
 
 export const countAtom=atom({
-    id:"count",
+    key:"count",
     default:0
 })
